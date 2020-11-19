@@ -72,16 +72,20 @@ bool AnyMetadata::InternalUnpackTo(StringPiece type_name,
 
 bool AnyMetadata::InternalIs(StringPiece type_name) const {
   StringPiece type_url = type_url_->Get();
-  return type_url.size() >= type_name.size() + 1 &&
+  return (type_url.size() >= type_name.size() + 1 &&
          type_url[type_url.size() - type_name.size() - 1] == '/' &&
-         HasSuffixString(type_url, type_name);
+         HasSuffixString(type_url, type_name)) || type_name == type_url;
 }
 
 bool ParseAnyTypeUrl(StringPiece type_url, std::string* url_prefix,
                      std::string* full_type_name) {
   size_t pos = type_url.find_last_of("/");
   if (pos == std::string::npos || pos + 1 == type_url.size()) {
-    return false;
+    if (url_prefix) {
+        *url_prefix = std::string();
+    }
+    *full_type_name = std::string(type_url);
+    return true;
   }
   if (url_prefix) {
     *url_prefix = std::string(type_url.substr(0, pos + 1));

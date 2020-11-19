@@ -307,6 +307,10 @@ class DescriptorPoolTypeResolver : public TypeResolver {
 
   Status ParseTypeUrl(const std::string& type_url, std::string* type_name) {
     if (type_url.substr(0, url_prefix_.size() + 1) != url_prefix_ + "/") {
+      if (type_url.rfind('/') == std::string::npos) {
+          *type_name = type_url;
+          return Status();
+      }
       return Status(
           util::error::INVALID_ARGUMENT,
           StrCat("Invalid type URL, type URLs must be of the form '",

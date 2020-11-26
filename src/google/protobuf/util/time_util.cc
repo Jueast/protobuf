@@ -28,6 +28,13 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#ifdef _WIN32
+#ifdef _MM_PROTOBUF_LIBRARY_INTERNAL
+#include "Windows/AllowWindowsPlatformTypes.h"
+#include "Windows/PreWindowsApi.h"
+#endif
+#endif 
+
 #include <google/protobuf/util/time_util.h>
 
 #include <google/protobuf/stubs/stringprintf.h>
@@ -36,7 +43,12 @@
 #include <google/protobuf/timestamp.pb.h>
 #include <google/protobuf/stubs/int128.h>
 #include <google/protobuf/stubs/time.h>
-
+#ifdef _WIN32
+#ifdef _MM_PROTOBUF_LIBRARY_INTERNAL
+#include "Windows/PostWindowsApi.h"
+#include "Windows/HideWindowsPlatformTypes.h"
+#endif
+#endif
 // Must go after other includes.
 #include <google/protobuf/port_def.inc>
 

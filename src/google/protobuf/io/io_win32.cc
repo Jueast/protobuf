@@ -60,11 +60,17 @@
 #include <sys/types.h>
 #include <wctype.h>
 
+
+#ifdef _MM_PROTOBUF_LIBRARY_INTERNAL
+#include "Windows/AllowWindowsPlatformTypes.h"
+#include "Windows/PreWindowsApi.h"
+#include <windows.h>
+#elif
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN 1
 #endif
-
 #include <windows.h>
+#endif
 
 #include <memory>
 #include <sstream>
@@ -466,5 +472,9 @@ bool wcs_to_utf8(const wchar_t* input, string* out) {
 }  // namespace io
 }  // namespace protobuf
 }  // namespace google
+#ifdef _MM_PROTOBUF_LIBRARY_INTERNAL
+#include "Windows/PostWindowsApi.h"
+#include "Windows/HideWindowsPlatformTypes.h"
+#endif
 
 #endif  // defined(_WIN32)

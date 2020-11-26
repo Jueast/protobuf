@@ -42,7 +42,15 @@
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN  // We only need minimal includes
 #endif
+#ifdef _MM_PROTOBUF_LIBRARY_INTERNAL
+#include "Windows/AllowWindowsPlatformTypes.h"
+#include "Windows/PreWindowsApi.h"
 #include <windows.h>
+#include "Windows/PostWindowsApi.h"
+#include "Windows/HideWindowsPlatformTypes.h"
+#elif
+#include <windows.h>
+#endif
 #define snprintf _snprintf    // see comment in strutil.cc
 #elif defined(HAVE_PTHREAD)
 #include <pthread.h>

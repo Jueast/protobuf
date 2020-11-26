@@ -458,8 +458,9 @@ class PROTOBUF_EXPORT ArenaImpl {
   // wrap them in static functions.
   static ThreadCache& thread_cache();
 #else
-  static PROTOBUF_THREAD_LOCAL ThreadCache thread_cache_;
-  static ThreadCache& thread_cache() { return thread_cache_; }
+  // ban local use
+  // static PROTOBUF_THREAD_LOCAL ThreadCache thread_cache_;
+  static ThreadCache& thread_cache();
 #endif
 
   GOOGLE_DISALLOW_EVIL_CONSTRUCTORS(ArenaImpl);

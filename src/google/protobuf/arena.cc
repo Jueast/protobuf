@@ -68,8 +68,11 @@ ArenaImpl::ThreadCache& ArenaImpl::thread_cache() {
   return thread_cache_;
 }
 #else
-PROTOBUF_THREAD_LOCAL ArenaImpl::ThreadCache ArenaImpl::thread_cache_ = {
-    0, static_cast<LifecycleIdAtomic>(-1), nullptr};
+ArenaImpl::ThreadCache& ArenaImpl::thread_cache() {
+  static PROTOBUF_THREAD_LOCAL ThreadCache thread_cache_ = {
+      0, static_cast<LifecycleIdAtomic>(-1), nullptr};
+  return thread_cache_;
+}
 #endif
 
 void ArenaFree(void* object, size_t size) {

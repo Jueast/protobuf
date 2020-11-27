@@ -569,7 +569,7 @@
 #define PROTOBUF_MAYBE_CONSTEXPR constexpr
 #endif
 
-#if _MSC_VER
+#if defined(_MSC_VER)
 #define PROTOBUF_DISABLE_MSVC_UNION_WARNING \
   __pragma(warning(push)) \
   __pragma(warning(disable : 4582)) \
@@ -604,3 +604,13 @@
 #if !defined(PROTOBUF_ATTRIBUTE_NO_DESTROY)
 #define PROTOBUF_ATTRIBUTE_NO_DESTROY
 #endif
+
+// Disable some warning
+#if defined(_MSC_VER)
+#pragma warning(disable:4065 4125 4800 4946 4582)
+#endif //_MSC_VER
+
+// Disable some warning
+#if defined(_MSC_VER) && defined(_MM_PROTOBUF_LIBRARY_INTERNAL)
+#pragma warning(disable:4127 4100 4276 4389 4018 4267 4457 4310 4506 4146 4996 4661)
+#endif //_MSC_VER

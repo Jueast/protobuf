@@ -48,7 +48,7 @@
 #include <windows.h>
 #include "Windows/PostWindowsApi.h"
 #include "Windows/HideWindowsPlatformTypes.h"
-#elif
+#else
 #include <windows.h>
 #endif
 #define snprintf _snprintf    // see comment in strutil.cc
